@@ -33,8 +33,8 @@ app.get('/test', (req, res) => {
 setupWebSocket(io);
 
 
-const routes = require('./src/routes/index');
-app.use(routes);
+app.use('/api/messages', require('./src/routes/chatRoutes'));
+app.use('/api/upload', require('./src/routes/uploadRoutes'));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
