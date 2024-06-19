@@ -18,6 +18,8 @@ const io = socketIo(server, {
 
 connectDB();
 
+app.use(cors());
+
 
 app.use(express.json());
 
