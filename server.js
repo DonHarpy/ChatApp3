@@ -32,7 +32,18 @@ app.get('/test', (req, res) => {
     res.send('Server is running');
 });
 
+app.delete('/api/messages/:id', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    const index = items.findIndex(item => item.id === id);
 
+    if (index !== -1) {
+        const deletedItem = items.splice(index, 1);
+        res.status(200).json(deletedItem);
+    } else {
+        res.status(404).json({ error: 'Item not found' });
+    }
+}
+)
 setupWebSocket(io);
 
 
