@@ -15,6 +15,10 @@ const setupWebSocket = (io) => {
         console.log('Client disconnected');
     });
     });
+    socket.on('file-upload', (file) => {
+        console.log('Received file:', file);
+        io.emit('file-upload', file);
+        });
 };
 
 module.exports = { setupWebSocket };

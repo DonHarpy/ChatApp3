@@ -46,6 +46,24 @@ const uploadFile = (req, res) => {
         }
     }
     });
-};
+};// Handle file upload
+router.post('/', upload.single('file'), (req, res) => {
+    if (!req.file) {
+    return res.status(400).send({ message: 'No file uploaded' });
+    }
+    const fileUrl = `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`;
+    
+  // Emit the uploaded file details via Socket.IO
+    req.app.get('io').emit('file-upload', { 
+    filename: req.file.filename, 
+    url: fileUrl,
+    timestamp: new Date().toISOString()
+    });
+
+    res.status(201).send({ 
+    filename: req.file.filename, 
+    url: fileUrl 
+    });
+});
 
 module.exports = { uploadFile };
